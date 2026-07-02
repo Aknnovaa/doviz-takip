@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Döviz Takibi</title>
+<style>
+body{background:#111;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding:20px}
+.card{max-width:360px;margin:auto;background:#1e1e1e;border-radius:16px;padding:20px}
+h2{text-align:center} .row{display:flex;justify-content:space-between;padding:8px 0;font-size:20px}
+.total{font-size:34px;font-weight:bold;text-align:center;margin-top:20px}
+small{color:#aaa}
+</style></head><body><div class="card">
+<h2>💰 Döviz Takibi</h2>
+<div class="row"><span>💵 USD</span><span>315</span></div>
+<div class="row"><span>💶 EUR</span><span>75</span></div>
+<hr>
+<div class="row"><span>USD/TRY</span><span id="u">...</span></div>
+<div class="row"><span>EUR/TRY</span><span id="e">...</span></div>
+<div class="total" id="t">Yükleniyor...</div>
+<small>Kur verisi Frankfurter API üzerinden alınır.</small>
+</div>
+<script>
+fetch('https://api.frankfurter.app/latest?from=TRY').then(r=>r.json()).then(d=>{
+ let usd=1/d.rates.USD, eur=1/d.rates.EUR;
+ u.textContent=usd.toFixed(2); e.textContent=eur.toFixed(2);
+ t.textContent=(315*usd+75*eur).toLocaleString('tr-TR',{style:'currency',currency:'TRY'});
+}).catch(()=>t.textContent='İnternet bağlantısı gerekli');
+</script></body></html>
